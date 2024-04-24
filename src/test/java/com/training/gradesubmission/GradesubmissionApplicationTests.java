@@ -1,4 +1,4 @@
-package com.training.gradesubmission.gradesubmission;
+package com.training.gradesubmission;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

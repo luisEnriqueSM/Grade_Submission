@@ -1,13 +1,13 @@
-package com.training.gradesubmission.gradesubmission;
+package com.training.gradesubmission;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GradesubmissionApplication {
+public class GradeSubmissionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GradesubmissionApplication.class, args);
+		SpringApplication.run(GradeSubmissionApplication.class, args);
 	}
 
 }
