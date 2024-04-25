@@ -1,4 +1,8 @@
 package com.training.gradesubmission.repository;
 
-public class StudentRepository {
+import com.training.gradesubmission.entity.Student;
+import org.springframework.data.repository.CrudRepository;
+
+public interface StudentRepository extends CrudRepository<Student, Long>{
+
 }
