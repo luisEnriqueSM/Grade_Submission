@@ -1,11 +1,14 @@
 package com.training.gradesubmission.service;
 
+import com.training.gradesubmission.entity.Grade;
 import com.training.gradesubmission.entity.Student;
+import com.training.gradesubmission.expection.StudentNotFoundException;
 import com.training.gradesubmission.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -15,7 +18,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudent(Long id) {
-        return studentRepository.findById(id).get();
+        Optional<Student> student = studentRepository.findById(id);
+        return unwrapStudent(student, id);
     }
 
     @Override
@@ -31,5 +35,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getStudents() {
         return (List<Student>) studentRepository.findAll();
+    }
+
+    static Student unwrapStudent(Optional<Student> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        else throw new StudentNotFoundException(id);
     }
 }
