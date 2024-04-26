@@ -2,6 +2,8 @@ package com.training.gradesubmission.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -21,10 +23,12 @@ public class Student {
     private Long id;
 
     @NonNull
+    @NotBlank(message = "Name cannot be blank")
     @Column(name = "name", nullable = false)
     private String name;
 
     @NonNull
+    @Past(message = "The birth date must be in the past")
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 

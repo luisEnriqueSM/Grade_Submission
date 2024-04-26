@@ -2,6 +2,7 @@ package com.training.gradesubmission.web;
 
 import com.training.gradesubmission.entity.Grade;
 import com.training.gradesubmission.service.GradeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,12 @@ public class GradeController {
     }
 
     @PostMapping("/student/{studentId}/course/{courseId}")
-    public ResponseEntity<Grade> saveGrade(@RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
+    public ResponseEntity<Grade> saveGrade(@Valid  @RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
         return new ResponseEntity<>(gradeService.saveGrade(grade, studentId, courseId), HttpStatus.CREATED);
     }
 
     @PutMapping("/student/{studentId}/course/{courseId}")
-    public ResponseEntity<Grade> upgradeGrade(@RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
+    public ResponseEntity<Grade> upgradeGrade(@Valid @RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
         return new ResponseEntity<>(gradeService.updateGrade(grade.getScore(), studentId, courseId), HttpStatus.OK);
     }
 
