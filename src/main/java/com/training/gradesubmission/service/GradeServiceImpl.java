@@ -4,6 +4,7 @@ import com.training.gradesubmission.entity.Course;
 import com.training.gradesubmission.entity.Grade;
 import com.training.gradesubmission.entity.Student;
 import com.training.gradesubmission.expection.GradeNotFoundException;
+import com.training.gradesubmission.expection.StudentNotEnrolledException;
 import com.training.gradesubmission.repository.CourseRepository;
 import com.training.gradesubmission.repository.GradeRepository;
 import com.training.gradesubmission.repository.StudentRepository;
@@ -35,6 +36,7 @@ public class GradeServiceImpl implements GradeService{
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
         Student student = StudentServiceImpl.unwrapStudent(studentRepository.findById(studentId), studentId);
         Course course = CourseServiceImpl.unwrapCourse(courseRepository.findById(courseId), courseId);
+        if(!student.getCourses().contains(course)) throw new StudentNotEnrolledException(studentId, courseId);
         grade.setStudent(student);
         grade.setCourse(course);
         return gradeRepository.save(grade);

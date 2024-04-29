@@ -1,6 +1,7 @@
 package com.training.gradesubmission.web;
 
 import com.training.gradesubmission.entity.Course;
+import com.training.gradesubmission.entity.Student;
 import com.training.gradesubmission.service.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/course")
@@ -41,4 +43,13 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getCourses(), HttpStatus.OK);
     }
 
+    @PutMapping("/{courseId}/student/{studentId}")
+    public ResponseEntity<Course> enrollStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId){
+        return new ResponseEntity<>(courseService.addStudentToCourse(studentId, courseId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/students")
+    public ResponseEntity<Set<Student>> getEnrolledStudents(@PathVariable Long id){
+      return new ResponseEntity<>(courseService.getEnrolledStudents(id), HttpStatus.OK);
+    }
 }
